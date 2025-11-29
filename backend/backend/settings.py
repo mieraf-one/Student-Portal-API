@@ -28,7 +28,7 @@ INSTALLED_APPS = [
 
     'api',
     'student',
-    'auth',
+    'authentication',
     'rest_framework'
 ]
 
