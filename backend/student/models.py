@@ -10,3 +10,6 @@ class User(AbstractUser):
 
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, null=True, blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
+
+class Student(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
