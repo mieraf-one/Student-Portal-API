@@ -2,11 +2,26 @@ from django.db import models
 from student.models import Student
 from teacher.models import Teacher
 
+class Semester(models.Model):
+    semester = models.IntegerField()
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    grade = models.FloatField(default=0.00)
+
+    edited_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.semester}'
+
 class Course(models.Model):
     title = models.CharField(max_length=500)
     credit_hours = models.IntegerField()
     assigned_teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='courses')
     student = models.ManyToManyField(Student, through='Enrollment')
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE, related_name='courses')
+
+    def __str__(self):
+        return f'{self.title}'
 
 
 class Enrollment(models.Model):
